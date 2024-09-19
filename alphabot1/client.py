@@ -23,8 +23,11 @@ d = {1:"forward",
 def main():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(SERVER_ADDRESS)
-    command = int(input("inserisci un comando:\n\
+    command = 0
+    while command < 1 or command > 4: 
+        command = int(input("inserisci un comando:\n\
 1:forward\n2:backward\n3:left\n4:right\n"))
+    
     value = int(input("inserisci la distanza: "))
     s.sendall(f"{d[command]}|{value}".encode())
 

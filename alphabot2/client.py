@@ -55,6 +55,7 @@ def main():
     s.connect(SERVER_ADDRESS)
     start_listener()
     while True:
+        print(f"comando: {command}")
         s.sendall(command.encode())
 
     s.close()

@@ -18,22 +18,18 @@ def main():
         message = connection.recv(BUFFER_SIZE)
         direz_decode = message.decode()
 
-        direz, dist = direz_decode.split("|")
+        print(f"{direz_decode}")
 
-        print(f"{direz} {dist}")
-
-        if direz == "forward":
+        if direz_decode == "w":
             alphaBot.forward()
-        elif direz == "backward":
+        elif direz_decode == "s":
             alphaBot.backward()
-        elif direz == "left":
+        elif direz_decode == "a":
             alphaBot.left()
-        elif direz == "right":
+        elif direz_decode == "d":
             alphaBot.right()
-        elif direz == "stop":
+        elif direz_decode.isupper():
             alphaBot.stop()
-        
-        connection.sendall(direz.encode())
     
     s.close()
 

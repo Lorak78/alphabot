@@ -12,28 +12,30 @@
 
 import socket
 
-SERVER_ADDRESS = ("192.168.1.122", 9090)
+SERVER_ADDRESS = ("192.168.1.128", 9090)
 BUFFER_SIZE = 4096
 
 d = {1:"forward",
      2:"backward",
      3:"left",
-     4:"right"}
+     4:"right",
+     5:"stop"}
 
 def main():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(SERVER_ADDRESS)
-    command = 0
-    while command < 1 or command > 4: 
-        command = int(input("inserisci un comando:\n\
-1:forward\n2:backward\n3:left\n4:right\n"))
-    
-    value = int(input("inserisci la distanza: "))
-    s.sendall(f"{d[command]}|{value}".encode())
+    while True:
+        command = 0
+        while command < 1 or command > 5: 
+            command = int(input("inserisci un comando:\n\
+    1:forward\n2:backward\n3:left\n4:right\n5:stop"))
+        
+        value = int(input("inserisci la distanza: "))
+        s.sendall(f"{d[command]}|{value}".encode())
 
-    message = s.recv(BUFFER_SIZE)
+        message = s.recv(BUFFER_SIZE)
 
-    print(f"{message.decode()}")
+        print(f"{message.decode()}")
 
     s.close()
 

@@ -45,7 +45,6 @@ def on_release(key):
         print("release d")
     
     command = key.char.upper()
-    
 
 def start_listener():
     with keyboard.Listener(on_press = on_press, on_release = on_release) as listener:

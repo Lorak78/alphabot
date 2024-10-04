@@ -18,17 +18,20 @@ def main():
         message = connection.recv(BUFFER_SIZE)
         direz_decode = message.decode()
 
-        print(f"{direz_decode}")
-
         if direz_decode == "w":
+            print("avanti")
             alphaBot.forward()
         elif direz_decode == "s":
+            print("indietro")
             alphaBot.backward()
         elif direz_decode == "a":
+            print("sinistra")
             alphaBot.left()
         elif direz_decode == "d":
+            print("destra")
             alphaBot.right()
         elif direz_decode.isupper():
+            print("stop")
             alphaBot.stop()
     
     s.close()

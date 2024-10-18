@@ -1,13 +1,17 @@
 import socket
 from pynput import keyboard
+import time
+import threading
 
-SERVER_ADDRESS = ("192.168.1.128", 9090)
+SERVER_ADDRESS = ("127.0.0.1", 9090)
 BUFFER_SIZE = 4096
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(SERVER_ADDRESS)
+diz_mess = {"w":False,"a":False,"s":False,"d":False}
 
 def on_press(key):
+    global diz_mess
 
     if key.char == "w":
         print("press w")
@@ -17,10 +21,14 @@ def on_press(key):
         print("press a")
     elif key.char == "d":
         print("press d")
+        
+    if key.char in "wasd":
+        if diz_mess[key.char] != True:
+            diz_mess[key.char] = True
+            s.sendall(f"{diz_mess}".encode())
     
-    s.sendall(key.char.lower().encode())
-
 def on_release(key):
+    global diz_mess
 
     if key.char == "w":
         print("release w")
@@ -30,8 +38,10 @@ def on_release(key):
         print("release a")
     elif key.char == "d":
         print("release d")
+    if key.char in "wasd":
+        diz_mess[key.char] = False
     
-    s.sendall(key.char.upper().encode())
+    s.sendall(f"{diz_mess}".encode())
     
 
 def start_listener():

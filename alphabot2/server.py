@@ -1,58 +1,67 @@
-import socket#, AlphaBot
+import socket
+import time
+import AlphaBot
 
-MY_ADDRESS = ("127.0.0.1", 9090)
+MY_ADDRESS = ("192.168.1.62", 9090)
 BUFFER_SIZE = 4096
+TIMEOUT = 10
 
-#alphaBot = AlphaBot.AlphaBot()
+alphaBot = AlphaBot.AlphaBot()
 
 def main():
-    #alphaBot.stop()
+    alphaBot.stop()
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(MY_ADDRESS)
     s.listen()
     
-    connection, client_address = s.accept() #bloccante
+    connection, client_address = s.accept()  #bloccante
     print(f"Il client {client_address} si è connesso")
 
+    last_message_time = time.time()
+
     while True:
-        message = connection.recv(BUFFER_SIZE)
-        direz_decode = message.decode()
+        connection.settimeout(1)
 
-        diz_movimenti = eval(direz_decode) #trasforma l'fstring in dizionario
+        try:
+            message = connection.recv(BUFFER_SIZE)
+            if not message:
+                print("Connessione Interrotta")
+                alphaBot.stop()
+                break 
 
-        #.setMotor(left, right)
-        if diz_movimenti["w"] == True:
-            if diz_movimenti["a"] == True:
-                print("avanti sinistra")
-                #alphaBot.setMotor(25, -50)
-            elif diz_movimenti["d"] == True:
-                print("avanti destra")
-                #alphaBot.setMotor(-50, 25)
-            else:
+            direz_decode = message.decode()
+            last_message_time = time.time()
+
+            if direz_decode == "KEEP-ALIVE":
+                print("Keep-alive ricevuto dal client")
+                continue
+
+            diz_movimenti = eval(direz_decode)
+
+            if diz_movimenti["w"]:
                 print("avanti")
-                #alphaBot.forward()
-        elif diz_movimenti["s"] == True:
-            if diz_movimenti["a"] == True:
-                print("indietro sinistra")
-                #alphaBot.setMotor(-25, 50)
-            elif diz_movimenti["d"] == True:
-                print("indietro destra")
-                #alphaBot.setMotor(50, -25)
-            else:
+                alphaBot.forward()
+            elif diz_movimenti["s"]:
                 print("indietro")
-                #alphaBot.backward()
-        elif diz_movimenti["a"] == True:
-            print("sinistra")
-            #alphaBot.left()
-        elif diz_movimenti["d"] == True:
-            print("destra")
-            #alphaBot.right()
-        elif all(not valore for valore in diz_movimenti.values()):
-            print("stop")
-            #alphaBot.stop()
-    
-    s.close()
+                alphaBot.backward()
+            elif diz_movimenti["a"]:
+                print("sinistra")
+                alphaBot.left()
+            elif diz_movimenti["d"]:
+                print("destra")
+                alphaBot.right()
+            elif all(not valore for valore in diz_movimenti.values()):
+                print("stop")
+                alphaBot.stop()
+
+        except socket.timeout:
+            if time.time() - last_message_time > TIMEOUT:
+                print("Timeout: client non ha inviato dati, considerato disconnesso.")
+                alphaBot.stop()
+                break
+
+    connection.close()
 
 if __name__ == "__main__":
     main()

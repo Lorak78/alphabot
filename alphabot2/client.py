@@ -3,12 +3,13 @@ from pynput import keyboard
 import time
 import threading
 
-SERVER_ADDRESS = ("127.0.0.1", 9090)
+SERVER_ADDRESS = ("192.168.1.62", 9090)
 BUFFER_SIZE = 4096
+KEEP_ALIVE_INTERVAL = 5  # Invia un keep-alive ogni 5 secondi
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(SERVER_ADDRESS)
-diz_mess = {"w":False,"a":False,"s":False,"d":False}
+diz_mess = {"w": False, "a": False, "s": False, "d": False}
 
 def on_press(key):
     global diz_mess
@@ -21,12 +22,12 @@ def on_press(key):
         print("press a")
     elif key.char == "d":
         print("press d")
-        
+    
     if key.char in "wasd":
         if diz_mess[key.char] != True:
             diz_mess[key.char] = True
             s.sendall(f"{diz_mess}".encode())
-    
+
 def on_release(key):
     global diz_mess
 
@@ -38,20 +39,27 @@ def on_release(key):
         print("release a")
     elif key.char == "d":
         print("release d")
+    
     if key.char in "wasd":
         diz_mess[key.char] = False
     
     s.sendall(f"{diz_mess}".encode())
-    
 
 def start_listener():
-    with keyboard.Listener(on_press = on_press, on_release = on_release) as listener:
+    with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
         listener.join()
-    
-def main():
-    start_listener()
+
+def send_keep_alive():
     while True:
-        pass
+        s.sendall("KEEP-ALIVE".encode())
+        time.sleep(KEEP_ALIVE_INTERVAL)
+
+def main():
+    keep_alive_thread = threading.Thread(target=send_keep_alive)
+    keep_alive_thread.daemon = True
+    keep_alive_thread.start()
+
+    start_listener()
 
     s.close()
 

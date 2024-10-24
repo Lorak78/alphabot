@@ -2,7 +2,7 @@ import socket
 import time
 import AlphaBot
 
-MY_ADDRESS = ("192.168.1.62", 9090)
+MY_ADDRESS = ("10.210.0.138", 9090)
 BUFFER_SIZE = 4096
 TIMEOUT = 10
 

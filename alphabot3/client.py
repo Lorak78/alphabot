@@ -23,10 +23,13 @@ def on_press(key):
     elif key.char == "d":
         print("press d")
     
-    if key.char in "wasd":
+    if key.char in diz_mess.keys():
         if diz_mess[key.char] != True:
             diz_mess[key.char] = True
             s.sendall(f"{diz_mess}".encode())
+    else:
+        diz_mess[key.char] = True
+        s.sendall(f"{diz_mess}".encode())
 
 def on_release(key):
     global diz_mess
@@ -40,7 +43,7 @@ def on_release(key):
     elif key.char == "d":
         print("release d")
     
-    if key.char in "wasd":
+    if key.char in diz_mess.keys():
         diz_mess[key.char] = False
     
     s.sendall(f"{diz_mess}".encode())

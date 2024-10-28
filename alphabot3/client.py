@@ -3,7 +3,7 @@ from pynput import keyboard
 import time
 import threading
 
-SERVER_ADDRESS = ("127.0.0.1", 9090)
+SERVER_ADDRESS = ("192.168.1.128", 9090)
 BUFFER_SIZE = 4096
 KEEP_ALIVE_INTERVAL = 5
 
@@ -13,15 +13,8 @@ diz_mess = {"w": False, "a": False, "s": False, "d": False}
 
 def on_press(key):
     global diz_mess
-
-    if key.char == "w":
-        print("press w")
-    elif key.char == "s":
-        print("press s")
-    elif key.char == "a":
-        print("press a")
-    elif key.char == "d":
-        print("press d")
+    
+    print(key.char)
     
     if key.char in diz_mess.keys():
         if diz_mess[key.char] != True:
@@ -33,15 +26,8 @@ def on_press(key):
 
 def on_release(key):
     global diz_mess
-
-    if key.char == "w":
-        print("release w")
-    elif key.char == "s":
-        print("release s")
-    elif key.char == "a":
-        print("release a")
-    elif key.char == "d":
-        print("release d")
+    
+    print(key.char)
     
     if key.char in diz_mess.keys():
         diz_mess[key.char] = False

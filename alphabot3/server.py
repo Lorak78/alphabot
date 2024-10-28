@@ -3,7 +3,7 @@ import time
 import AlphaBot
 import sqlite3
 
-MY_ADDRESS = ("10.210.0.138", 9090)
+MY_ADDRESS = ("192.168.1.128", 9090)
 BUFFER_SIZE = 4096
 TIMEOUT = 10
 
@@ -17,6 +17,38 @@ lista_tabella = dati_tabella.fetchall()
 
 diz_comandi_tabella = {elem[0]:elem[1] for elem in lista_tabella}
 
+def controlloInDizTabella(diz_movimenti):
+    for key in diz_movimenti:
+        if key in diz_comandi_tabella and diz_movimenti[key]:
+            return key
+    return ""  
+
+
+def eseguiComandoTabella(str_comandi:str):
+    lista_comandi = str_comandi.split(",")
+    #print(lista_comando)
+    for comando in lista_comandi:
+        if comando[0] == "f":
+            print(f"avanti,{int(comando[1:])}")
+            alphaBot.forward()
+            time.sleep(int(comando[1:])/100)
+            alphaBot.stop()
+        elif comando[0] == "b":
+            print(f"indietro,{int(comando[1:])}")
+            alphaBot.backward()
+            time.sleep(int(comando[1:])/100)
+            alphaBot.stop()
+        elif comando[0] == "l":
+            print(f"sinistra,{int(comando[1:])}")
+            alphaBot.left()
+            time.sleep(int(comando[1:])/100)
+            alphaBot.stop()
+        elif comando[0] == "r":
+            print(f"destra,{int(comando[1:])}")
+            alphaBot.right()
+            time.sleep(int(comando[1:])/100)
+            alphaBot.stop()
+    
 def main():
     alphaBot.stop()
 
@@ -26,6 +58,7 @@ def main():
     
     connection, client_address = s.accept()  #bloccante
     print(f"Il client {client_address} si è connesso")
+    print(f"diz comandi: {diz_comandi_tabella}")
 
     last_message_time = time.time()
 
@@ -47,6 +80,9 @@ def main():
                 continue
 
             diz_movimenti = eval(direz_decode)
+            print(diz_movimenti)
+            lettera = controlloInDizTabella(diz_movimenti)
+            print(lettera)
 
             if diz_movimenti["w"]:
                 print("avanti")
@@ -60,20 +96,16 @@ def main():
             elif diz_movimenti["d"]:
                 print("destra")
                 alphaBot.right()
-            elif all(not valore for valore in diz_movimenti.values()):
-                print("stop")
+            elif lettera != "":
+                eseguiComandoTabella(diz_comandi_tabella[lettera])
+            else:
                 alphaBot.stop()
-            
 
         except socket.timeout:
             if time.time() - last_message_time > TIMEOUT:
                 print("Timeout: client non ha inviato dati, considerato disconnesso.")
                 alphaBot.stop()
                 break
-        if direz_decode not in diz_comandi_tabella:
-            alphaBot.stop()
-        else:
-            print(diz_comandi_tabella[direz_decode])
 
     connection.close()
 

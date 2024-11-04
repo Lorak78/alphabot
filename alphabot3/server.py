@@ -23,11 +23,11 @@ def controlloInDizTabella(diz_movimenti):
             return key
     return ""  
 
-
 def eseguiComandoTabella(str_comandi:str):
     lista_comandi = str_comandi.split(",")
     #print(lista_comando)
     for comando in lista_comandi:
+        time.sleep(0.7)
         if comando[0] == "f":
             print(f"avanti,{int(comando[1:])}")
             alphaBot.forward()
@@ -75,7 +75,7 @@ def main():
             direz_decode = message.decode()
             last_message_time = time.time()
 
-            if direz_decode == "KEEP-ALIVE":
+            if "KEEP-ALIVE" in direz_decode or "}{" in direz_decode:
                 print("Keep-alive ricevuto dal client")
                 continue
 

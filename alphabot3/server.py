@@ -84,12 +84,23 @@ def main():
             lettera = controlloInDizTabella(diz_movimenti)
             print(lettera)
 
+            #.setMotor(left, right)
             if diz_movimenti["w"]:
-                print("avanti")
-                alphaBot.forward()
+                if diz_movimenti["a"]:
+                    alphaBot.setMotor(-100, 50)
+                elif diz_movimenti["d"]:
+                    alphaBot.setMotor(-50,100)
+                else:
+                    print("avanti")
+                    alphaBot.forward()
             elif diz_movimenti["s"]:
-                print("indietro")
-                alphaBot.backward()
+                if diz_movimenti["a"]:
+                    alphaBot.setMotor(100,-50)
+                elif diz_movimenti["d"]:
+                    alphaBot.setMotor(50,-100)
+                else:
+                    print("indietro")
+                    alphaBot.backward()
             elif diz_movimenti["a"]:
                 print("sinistra")
                 alphaBot.left()

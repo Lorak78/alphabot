@@ -3,7 +3,7 @@ import time # serve per la gestione della caduta della connessione con il keep-a
 import AlphaBot
 import sqlite3
 
-MY_ADDRESS = ("192.168.1.128", 9090)
+MY_ADDRESS = ("192.168.1.129", 9090)
 BUFFER_SIZE = 4096
 TIMEOUT = 10 #in secondi, tempo che si attende senza ricevere il keep-alive prima di arrestare il programma
 
@@ -162,7 +162,7 @@ def main():
                     alphaBot.setMotor(-25,50)
                 else:
                     print("avanti")
-                    alphaBot.setMotor(-40, 45)
+                    alphaBot.setMotor(-43, 47)
                     #alphaBot.forward()
             elif diz_movimenti["s"]:
                 #controllo di pressione contemporanea di a oppure d, in tal caso, spostarsi anche a dx/sx
@@ -173,13 +173,15 @@ def main():
                     alphaBot.setMotor(25,-50)
                 else:
                     print("indietro")
-                    alphaBot.setMotor(40, -45)
+                    alphaBot.setMotor(43, -47)
             elif diz_movimenti["a"]:
                 print("sinistra")
                 alphaBot.left()
             elif diz_movimenti["d"]:
                 print("destra")
                 alphaBot.right()
+            elif diz_movimenti["n"]:
+                alphaBot.setMotor(-86, 94)
             elif lettera != "": #se lettera è nella tabella esegui il comando della tabella
                 eseguiComandoTabella(diz_comandi_tabella[lettera])
             else:

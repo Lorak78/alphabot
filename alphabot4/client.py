@@ -3,13 +3,13 @@ from pynput import keyboard
 import time
 import threading
 
-SERVER_ADDRESS = ("192.168.1.128", 9090)
+SERVER_ADDRESS = ("192.168.1.129", 9090)
 BUFFER_SIZE = 4096
 KEEP_ALIVE_INTERVAL = 5 #il messaggio keep-alive si manda ogni 5 secondi
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #creazione socket tcp
 s.connect(SERVER_ADDRESS) #connessione al server
-diz_mess = {"w": False, "a": False, "s": False, "d": False} #dizionario delle direzioni basilari, tutte a false
+diz_mess = {"w": False, "a": False, "s": False, "d": False, "n": False} #dizionario delle direzioni basilari, tutte a false
 
 def on_press(key): #funzione chiamata in un thread ogni volta che si preme un tasto
     global diz_mess

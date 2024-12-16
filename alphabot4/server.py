@@ -162,7 +162,7 @@ def main():
                     alphaBot.setMotor(-25,50)
                 else:
                     print("avanti")
-                    alphaBot.setMotor(-43, 47)
+                    alphaBot.setMotor(-73, 77)
                     #alphaBot.forward()
             elif diz_movimenti["s"]:
                 #controllo di pressione contemporanea di a oppure d, in tal caso, spostarsi anche a dx/sx
@@ -173,13 +173,13 @@ def main():
                     alphaBot.setMotor(25,-50)
                 else:
                     print("indietro")
-                    alphaBot.setMotor(43, -47)
+                    alphaBot.setMotor(73, -77)
             elif diz_movimenti["a"]:
                 print("sinistra")
-                alphaBot.left()
+                alphaBot.setMotor(-50, -50)
             elif diz_movimenti["d"]:
                 print("destra")
-                alphaBot.right()
+                alphaBot.setMotor(50, 50)
             elif diz_movimenti["n"]:
                 alphaBot.setMotor(-86, 94)
             elif lettera != "": #se lettera è nella tabella esegui il comando della tabella

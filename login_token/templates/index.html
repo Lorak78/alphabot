@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./../static/style1.css" />
+    <script>
+        // Funzione per inviare comandi al server
+        function sendCommand(command) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/index';
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = command;
+            input.value = command;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+
+        // Eventi per gestione pressione e rilascio
+        function onPress(command) {
+            sendCommand(command); // Invia il comando
+        }
+
+        function onRelease() {
+            sendCommand('stop'); // Invia il comando "stop" al rilascio
+        }
+    </script>
+</head>
+<body>
+    <h3>Benvenuto {{ username }}</h3>
+    <form method="post" action="/index" onsubmit="return false;">
+        <!-- Bottoni di movimento -->
+        <input type="submit" value="avanti" name="w" 
+               onmousedown="onPress('w')" onmouseup="onRelease()" >
+        <input type="submit" value="indietro" name="s" 
+               onmousedown="onPress('s')" onmouseup="onRelease()" >
+        <input type="submit" value="sinistra" name="a" 
+               onmousedown="onPress('a')" onmouseup="onRelease()" >
+        <input type="submit" value="destra" name="d" 
+               onmousedown="onPress('d')" onmouseup="onRelease()" >
+        
+    </form>
+    <form method="post" action="/index">
+        <input type="submit" value="stop" name="stop">
+        <input type="submit" value="esc" name="esc" />
+        <input type="submit" value="logout" name="logout" />
+    </form>
+</body>
+</html>

@@ -1,0 +1,109 @@
+/* style1.css */
+
+/* Imposta lo stile generale per il corpo della pagina */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Stile per l'intestazione */
+h3 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #444;
+}
+
+/* Stile per il form */
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+}
+
+/* Posizionamento specifico dei pulsanti */
+input[name="w"] {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+input[name="a"] {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+input[name="stop"] {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+input[name="d"] {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+input[name="s"] {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+input[name="esc"] {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+input[name="logout"] {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+/* Stile per i bottoni */
+input[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100px; /* Dimensione uniforme per i pulsanti */
+    height: 50px;
+    text-transform: capitalize;
+}
+
+/* Hover e focus per i bottoni */
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+input[type="submit"]:active {
+    transform: scale(0.95);
+}
+
+/* Stile specifico per il bottone stop */
+input[type="submit"][value="stop"] {
+    background-color: #1a1a1a;
+}
+
+input[type="submit"][value="stop"]:hover {
+    background-color: #000000;
+}
+
+input[type="submit"][value="logout"] {
+    background-color: #dc3545;
+}
+
+input[type="submit"][value="logout"]:hover {
+    background-color: #a71d2a;
+}

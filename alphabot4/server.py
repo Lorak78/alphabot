@@ -9,7 +9,7 @@ TIMEOUT = 10 #in secondi, tempo che si attende senza ricevere il keep-alive prim
 
 alphaBot = AlphaBot.AlphaBot() #Creazione alphabot
 
-conn = sqlite3.connect("comandi.db") #associazione di una variabile alla tabella comandi
+conn = sqlite3.connect("./../comandi.db") #associazione di una variabile alla tabella comandi
 cur = conn.cursor() # serve per eseguire le query
 
 dati_tabella = cur.execute("SELECT * FROM tabellaComandi")

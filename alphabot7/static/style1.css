@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Contenitore per i bottoni */
+form {
+    display: grid;
+    grid-template-columns: 60px 60px 60px;
+    grid-template-rows: 60px 60px 60px;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Stile per i bottoni */
+input[type="submit"] {
+    width: 60px;
+    height: 60px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+input[type="submit"]:active {
+    transform: scale(0.95);
+}
+
+/* Disposizione dei bottoni */
+input[name="stop"] {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+input[name="w"] {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+input[name="a"] {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+input[name="s"] {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+input[name="d"] {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+/* Animazione per simulare il movimento (opzionale) */
+body.moving {
+    background-color: #e0ffe0;
+    transition: background-color 0.3s ease;
+}

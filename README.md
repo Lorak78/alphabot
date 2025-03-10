@@ -5,7 +5,6 @@ Le versioni degli esercizi applicate sull'alphabot sono numerate in ordine, attu
 
 Mentre le cartelle *login* e *login_token* servono per testare le funzionalità **non** dell'alphabot (quindi token, cookie, ecc..)
 
----
 
 ## Esecuzione
 Per l'esecuzione, bisogna avere la cartella col programma che si vuole eseguire sia sull'alphabot che sul proprio pc (questo **solo** se la versione è minore di 5, altrimenti basta averla solo sull'alphabot).

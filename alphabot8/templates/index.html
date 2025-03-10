@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='./../static/style1.css' />
+        <script>
+            document.addEventListener("keydown", function(event) {
+                sendCommand(event.key, "press");
+            });
+            document.addEventListener("keyup", function(event) {
+                sendCommand(event.key, "release");
+            });
+
+            function sendCommand(direction, action) {
+                fetch("/move", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ direction: direction, action: action })
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <h3>Bottoni {{ username }}</h3>
+        <form>
+            <input type='submit' value='avanti' onmousedown="sendCommand('w', 'press')" onmouseup="sendCommand('w', 'release')"/>
+            <input type='submit' value='indietro' onmousedown="sendCommand('s', 'press')" onmouseup="sendCommand('s', 'release')"/>
+            <input type='submit' value='sinistra' onmousedown="sendCommand('a', 'press')" onmouseup="sendCommand('a', 'release')"/>
+            <input type='submit' value='destra' onmousedown="sendCommand('d', 'press')" onmouseup="sendCommand('d', 'release')"/>
+            <input type='submit' value='stop' onmousedown="sendCommand('stop', 'press')"/>
+            <input type='submit' value='esc' onmousedown="sendCommand('esc', 'press')"/>
+            <input type='submit' value='logout' onmousedown="sendCommand('logout', 'press')"/>
+        </form>
+    </body>
+</html>
